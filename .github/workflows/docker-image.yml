@@ -19,7 +19,7 @@ jobs:
       id: build-image
       uses: redhat-actions/buildah-build@v2
       with:
-        image: my-app
+        image: argodemo
         tags: latest ${{ github.sha }}
         containerfiles: |
           ./Dockerfile
@@ -30,7 +30,7 @@ jobs:
       with:
         image: ${{ steps.build-image.outputs.image }}
         tags: ${{ steps.build-image.outputs.tags }}
-        registry: quay.io/tore_saterdal/argodemo
+        registry: quay.io/tore_saterdal
         username: "tore_saterdal+actions"
         password: ${{ secrets.REGISTRY_PASSWORD }}
 
