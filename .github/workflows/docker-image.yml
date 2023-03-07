@@ -40,7 +40,10 @@ jobs:
   update:
 
     runs-on: ubuntu-latest
-    container: quay.io/tore_saterdal/argocli:latest
+    container: 
+      image: quay.io/tore_saterdal/argocli:latest
+      env:
+        MIX_ENV: test
 
     steps:
     - name: Update image tag
