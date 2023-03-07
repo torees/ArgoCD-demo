@@ -44,4 +44,4 @@ jobs:
 
     steps:
     - name: Update image tag
-      run: /usr/local/bin/argocd app set demoapp --helm-set image.tag=${{ github.sha }}  --server argocd.io.elillevik.com --auth-token ${{ secrets.ARGO_TOKEN }}
+      run: /usr/local/bin/argocd app set demoapp --helm-set image.tag=${{ github.sha }}  --server argocd.io.elillevik.com --auth-token ${{ secrets.ARGO_TOKEN }} --insecure
