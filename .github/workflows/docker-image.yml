@@ -39,7 +39,8 @@ jobs:
 
   update:
 
-    runs-on: argoproj/argocd-cli
+    runs-on: ubuntu-latest
+    container: argoproj/argocd-cli
 
     steps:
     - name: Update image tag
