@@ -37,5 +37,10 @@ jobs:
     - name: Print image url
       run: echo "Image pushed to ${{ steps.push-to-quay.outputs.registry-paths }}"
 
-    - name: Argocd
-      run: apt update && apt install argocd
+  update:
+
+    runs-on: argoproj/argocd-cli
+
+    steps:
+    - name: Update image tag
+      run: argocd app set demoapp --helm-set image.tag=${{ github.sha }}  --server argocd.io.elillevik.com --auth-token ${{ secrets.ARGO_TOKEN }}
