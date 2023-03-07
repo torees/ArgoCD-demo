@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: quay.io/tore_saterdal/argodemo/my-app
+  repository: quay.io/tore_saterdal/argodemo
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
