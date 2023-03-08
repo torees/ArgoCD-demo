@@ -8,7 +8,7 @@ image:
   repository: quay.io/tore_saterdal/argodemo
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "demo"
+  tag: "latest"
 
 imagePullSecrets: []
 nameOverride: ""
