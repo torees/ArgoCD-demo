@@ -8,7 +8,7 @@ function App() {
     <div className="App">
       <Header />
       <div class="dashboard">
-        <h1>GitOps og ArgoCD for Toll v1.1</h1>
+        <h1>GitOps og ArgoCD for Toll v1.1, takk for meg</h1>
       </div>
       <Footer />
     </div>
