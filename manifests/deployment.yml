@@ -1,0 +1,85 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demoapp2
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: demoapp2
+      app.kubernetes.io/name: demoapp2
+    spec:
+      containers:
+      - image: quay.io/tore_saterdal/argodemo:latest
+        imagePullPolicy: Always
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /
+            port: http
+            scheme: HTTP
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: demoapp
+        ports:
+        - containerPort: 80
+          name: http
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /
+            port: http
+            scheme: HTTP
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources: {}
+        securityContext: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+
+
+--- 
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: demoapp2svc
+spec:
+  selector:
+    app.kubernetes.io/instance: demoapp2
+    app.kubernetes.io/name: demoapp2
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+    - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: http
+  sessionAffinity: None
+  type: ClusterIP
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: demoapp2ingress
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: demoapp2.io.elillevik.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: demoapp2
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
